@@ -1,8 +1,9 @@
-# Project Name
+# City Explorer
 
 **Author**: Mu'nes Yasin
 
-**Version**: 1.0.0 (increment the patch/fix version number if you make more commits past your first submission)
+**Version**: 1.0.0 
+
 
 ## Overview
 This is API server has data about weather in three country, which any client can send request to it to get this data
