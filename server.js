@@ -1,57 +1,47 @@
 'use strict'
-
+const axios = require('axios');
 const express = require('express');
 const server = express();
 
 
 require('dotenv').config();
 const cors =require('cors')
-const PORT=process.env.PORT;
+
 
 
 server.use(cors())
 
-const getData=require('./data/weather.json')
+const hundleMovies = require('./modules/Movies.js')
+const handleWeather = require('./modules/Weather.js')
 
 
-   
 
 
-server.get('/weather',(req,res)=>{
-        let cityName = req.query.cityName
 
-        let cityInfo  = getData.find(item =>{
-            if(item.city_name === cityName)
-            return item
-        })
-        console.log(cityInfo)
-        
 
-            class Forecast {
-                constructor(date1,description1,lat1,lon1){
-            
-                
-                this.date=date1;
-                this.description=description1;
-                this.lat=lat1;
-                this.lon=lon1;
-                }
-      
+const PORT=process.env.PORT;
 
-    }
-    
-    
-    
-    let cityWeather =  cityInfo.data.map(item=>{
+server.get('/', (req, res) => {
+    res.send('home route')
+})
 
-     return new Forecast(  item.valid_date,item.weather.description,cityInfo.lat,cityInfo.lon)
-    }
-    
-    )
- console.log(cityWeather)
-    res.send(cityWeather)
-        })
-    
+
+     
+
+
+
+
+server.get('/weather',handleWeather)
+
+
+
+
+
+
+
+server.get('/movie',hundleMovies)
+
+
 
 
 
