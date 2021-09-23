@@ -10,6 +10,7 @@ const cors =require('cors')
 
 
 server.use(cors())
+const PORT=process.env.PORT;
 
 const hundleMovies = require('./modules/Movies.js')
 const handleWeather = require('./modules/Weather.js')
@@ -19,9 +20,8 @@ const handleWeather = require('./modules/Weather.js')
 
 
 
-const PORT=process.env.PORT;
-let casheMemory ={};
-console.log(casheMemory)
+
+
 server.get('/', (req, res) => {
     res.send('home route')
 })
