@@ -9,7 +9,10 @@ const express = require('express')
         
 
     let getData=`${process.env.WEATHER_SERVER_LINK}?city=${cityName}&key=${process.env.WEATHER_KEY}`
-
+    if(casheMemory[cityName]!== undefined){
+res.send(casheMemory[cityName]);
+    }
+else{
      try{  axios.get(getData).then((getResult) => {
 
       console.log(getResult)
@@ -38,6 +41,10 @@ return new Forecast(  item.valid_date,item.weather.description,getResult.data.la
 
 )
 console.log(cityWeather)
+
+casheMemory[cityName]=cityWeather;
+
+
 res.send(cityWeather)
 }    ) 
 
@@ -47,7 +54,7 @@ catch(error){
 console.log('error from axios', error)
   res.send(error)
 }
-
+}
 }
 
 
