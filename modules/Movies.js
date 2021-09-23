@@ -13,10 +13,18 @@ function hundleMovies(req,res)
 
  let getData=`${process.env.MOVIE_LINK}?api_key=${process.env.MOVIE_KEY}&query=${cityName}&language=de-DE&region=DE`
 
-axios.get(getData).then(results =>{
+ if(casheMemory[cityName]!== undefined){
+    res.send(casheMemory[cityName]);
+        }
+        else{
+        try{   axios.get(getData).then(results =>{
     console.log(results.data)
     let movieArray = results.data.results.map(movie => new Movie(movie))
     console.log(movieArray)
+
+
+
+    casheMemory[cityName]=movieArray;
     res.send(movieArray)
 
 })
@@ -32,5 +40,10 @@ class Movie {
 
     }
 }
+        }
+        catch(error){
+            console.log('error from axios', error)
+              res.send(error)
+            }}
 }
 module.exports = hundleMovies; 
